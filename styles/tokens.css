@@ -1,0 +1,86 @@
+/* ============================================================
+   NEXUS ROBOTICS — DESIGN TOKENS
+   Concept: FRAME · Brutalist-Technical
+   Single source of truth for every visual decision.
+   ============================================================ */
+
+:root {
+  /* ---------- PALETTE (5 rationed values) ---------- */
+  /* The green law: --signal means "live / tracked / validated".
+     Never decorative. --caution means "failed / attention". */
+  --void: #000000;
+  --substrate: #0a0b0c;
+  --structure: #16181b;
+  --inspection: #ffffff;
+  --body-text: #e8e8e6;
+  --signal: #00ff66;
+  --caution: #ffb000;
+
+  /* Derived, opacity-gated structure lines */
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --dimmed: rgba(232, 232, 230, 0.6);
+  --faint: rgba(232, 232, 230, 0.35);
+  --signal-glow: rgba(0, 255, 102, 0.25);
+
+  /* ---------- TYPOGRAPHY ---------- */
+  /* Families are injected by next/font as CSS variables:
+     --font-display (Archivo), --font-mono (JetBrains Mono), --font-body (Inter) */
+
+  /* Modular scale (major third, 8px baseline) — fluid via clamp */
+  --text-xs: 0.75rem;                             /* 12 — telemetry, footnotes   */
+  --text-sm: 0.875rem;                            /* 14 — labels, nav, logs      */
+  --text-base: 1rem;                              /* 16 — body                   */
+  --text-md: 1.25rem;                             /* 20 — lead paragraphs        */
+  --text-lg: clamp(1.375rem, 2vw, 1.75rem);       /* 22–28 — sub-headlines       */
+  --text-xl: clamp(1.75rem, 3.4vw, 2.75rem);      /* 28–44 — section titles      */
+  --text-2xl: clamp(2.5rem, 5.6vw, 4.5rem);       /* 40–72 — major statements    */
+  --text-display: clamp(2.625rem, 9.4vw, 7.5rem); /* 42–120 — hero / manifesto   */
+  --text-colossal: clamp(3.5rem, 15.6vw, 12.5rem);/* 56–200 — single-word marks  */
+
+  --tracking-display: -0.02em;
+  --tracking-mono: 0.02em;
+  --tracking-label: 0.12em; /* uppercase micro-labels */
+
+  --leading-tight: 0.95;
+  --leading-snug: 1.15;
+  --leading-body: 1.6;
+
+  /* ---------- SPACING (8px baseline grid) ---------- */
+  --space-1: 0.5rem;   /*   8 */
+  --space-2: 1rem;     /*  16 */
+  --space-3: 1.5rem;   /*  24 */
+  --space-4: 2rem;     /*  32 */
+  --space-6: 3rem;     /*  48 */
+  --space-8: 4rem;     /*  64 */
+  --space-12: 6rem;    /*  96 */
+  --space-16: 8rem;    /* 128 */
+  --space-24: 12rem;   /* 192 — section voids */
+
+  /* ---------- LAYOUT ---------- */
+  --grid-columns: 12;
+  --grid-margin: clamp(1rem, 4vw, 4rem);
+  --grid-gutter: clamp(0.75rem, 1.5vw, 1.5rem);
+  --content-max: 90rem; /* 1440 */
+
+  /* ---------- MOTION (the "servo" signature) ---------- */
+  /* One mechanical curve everywhere. Sharp intent, precise lock.
+     Forbidden: bounce, elastic, overshoot, spring. */
+  --ease-servo: cubic-bezier(0.83, 0, 0.17, 1);
+  --duration-micro: 120ms;   /* hovers, presses          */
+  --duration-component: 320ms; /* cards, panels, wipes   */
+  --duration-camera: 1600ms; /* dock-to-dock camera moves */
+
+  /* ---------- Z-INDEX REGISTRY ---------- */
+  --z-canvas: 0;
+  --z-grid: 5; /* technical-drawing hairlines sit under content */
+  --z-content: 10;
+  --z-nav: 40;
+  --z-overlay: 50;
+  --z-boot: 60;
+
+  /* ---------- BORDERS ---------- */
+  /* Zero border-radius anywhere. Corners are engineered joints. */
+  --border-hairline: 1px solid var(--hairline);
+  --border-strong: 1px solid var(--hairline-strong);
+}

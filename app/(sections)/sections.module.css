@@ -1,0 +1,927 @@
+/* ============================================================
+   NEXUS ROBOTICS — SECTION STYLES (shared module)
+   Sections share the same small kit: log rows, instrument tiles,
+   datasheet tables, hairline structure. Consistency is the point.
+   ============================================================ */
+
+/* ---------- shared ---------- */
+
+.framing {
+  max-width: 60ch;
+  font-size: var(--text-md);
+  color: var(--dimmed);
+  margin-bottom: var(--space-8);
+}
+
+/* ---------- SEC.01 HERO ---------- */
+
+.hero {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-16) var(--grid-margin) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-4);
+}
+
+.heroSchematic {
+  position: absolute;
+  right: var(--grid-margin);
+  top: 50%;
+  transform: translateY(-52%);
+  height: min(72svh, 34rem);
+  width: auto;
+  max-width: calc(100vw - 2 * var(--grid-margin));
+  color: var(--body-text);
+}
+
+/* Live canvas active (mid/high tier) — retire the schematic */
+:global(html[data-tier="mid"]) .heroSchematic,
+:global(html[data-tier="high"]) .heroSchematic {
+  display: none;
+}
+
+.heroDrag {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  touch-action: pan-y; /* vertical scroll stays native */
+}
+
+.heroDrag:active {
+  cursor: grabbing;
+}
+
+.heroContent,
+.heroBootLog,
+.heroTelemetry {
+  pointer-events: none; /* drag surface owns the plane; text is display-only */
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.heroStatus {
+  color: var(--signal);
+}
+
+.statusDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--space-1);
+  background: var(--signal);
+  box-shadow: 0 0 8px var(--signal-glow);
+  animation: blink 2.4s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%,
+  78%,
+  100% {
+    opacity: 1;
+  }
+  84%,
+  92% {
+    opacity: 0.2;
+  }
+}
+
+.heroHeadline {
+  font-size: var(--text-display);
+  max-width: 12ch;
+}
+
+.heroSub {
+  font-size: var(--text-md);
+  max-width: 44ch;
+  color: var(--dimmed);
+}
+
+.heroBootLog {
+  position: absolute;
+  top: var(--space-12);
+  left: var(--grid-margin);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--text-xs);
+  color: var(--faint);
+}
+
+.heroBootLog span:last-child {
+  color: var(--signal);
+}
+
+.bootLinePending {
+  visibility: hidden;
+}
+
+.heroTelemetry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--faint);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-2);
+}
+
+.heroTelemetry b {
+  color: var(--dimmed);
+  font-weight: 500;
+}
+
+/* ---------- SEC.02 ABOUT — the log ---------- */
+
+.log {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.logRecord {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-top: var(--border-hairline);
+}
+
+.logDate {
+  font-size: var(--text-sm);
+  color: var(--faint);
+}
+
+.logText {
+  font-size: var(--text-sm);
+  color: var(--inspection);
+}
+
+.logDetail {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  margin-top: var(--space-1);
+  max-width: 60ch;
+}
+
+/* ---------- SEC.03 MISSION — the creed ---------- */
+
+.mission {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-24) var(--grid-margin);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-12);
+}
+
+.manifesto {
+  font-size: var(--text-colossal);
+  max-width: 10ch;
+}
+
+.principles {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 40rem;
+}
+
+.principle {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.principleNum {
+  color: var(--faint);
+}
+
+/* ---------- SEC.04 TECHNOLOGY — decision graph ---------- */
+
+.graph {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.node {
+  position: relative;
+  border: var(--border-hairline);
+  background: var(--substrate);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color var(--duration-micro) var(--ease-servo);
+}
+
+.node:hover {
+  border-color: var(--signal);
+}
+
+.nodeSpec {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  flex: 1;
+}
+
+.nodeLatency {
+  font-size: var(--text-xs);
+  color: var(--signal);
+}
+
+.nodeArrow {
+  position: absolute;
+  right: calc(-1 * var(--grid-gutter) + 2px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--faint);
+  font-size: var(--text-sm);
+}
+
+/* ---------- SEC.05 PLATFORM — exploded view ---------- */
+
+.platformStage {
+  min-height: 26rem;
+  border: var(--border-hairline);
+  /* transparent: the fixed canvas (exploded view) shows through */
+  background: transparent;
+  margin-bottom: var(--space-8);
+}
+
+.callouts {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.callout {
+  border-top: var(--border-strong);
+  padding-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.calloutCode {
+  font-size: var(--text-xs);
+  color: var(--signal);
+}
+
+.calloutLabel {
+  color: var(--inspection);
+}
+
+.calloutMaterial {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+}
+
+.calloutTolerance {
+  font-size: var(--text-xs);
+  color: var(--faint);
+}
+
+/* ---------- SEC.06 INDUSTRIES — four worlds ---------- */
+
+.industries {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: var(--border-hairline);
+}
+
+.industryTile {
+  padding: var(--space-6);
+  border: var(--border-hairline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color var(--duration-micro) var(--ease-servo);
+}
+
+.industryTile:hover {
+  border-color: var(--signal);
+}
+
+.industryName {
+  font-size: var(--text-lg);
+}
+
+.industryContext {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  flex: 1;
+}
+
+.industryMetric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: var(--border-hairline);
+}
+
+.industryMetric b {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--inspection);
+}
+
+/* ---------- SEC.07 LAB — open notes ---------- */
+
+.labGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.labCard {
+  border: var(--border-hairline);
+  background: var(--substrate);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.labStatus {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+}
+
+.labCard[data-status="VALIDATED"] .labStatus {
+  color: var(--signal);
+}
+
+.labCard[data-status="IN PROGRESS"] .labStatus {
+  color: var(--inspection);
+}
+
+.labCard[data-status="FAILED"] .labStatus {
+  color: var(--caution);
+}
+
+.labTitle {
+  font-size: var(--text-base);
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 600;
+  color: var(--inspection);
+}
+
+.labMethod {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  flex: 1;
+}
+
+.labResult {
+  font-size: var(--text-xs);
+  color: var(--faint);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-2);
+}
+
+/* ---------- SEC.08 PRODUCTS — datasheets ---------- */
+
+.productTabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--space-4);
+  border: var(--border-hairline);
+  width: fit-content;
+}
+
+.productTab {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  color: var(--dimmed);
+  padding: var(--space-2) var(--space-4);
+  border-right: var(--border-hairline);
+  transition:
+    color var(--duration-micro) var(--ease-servo),
+    background var(--duration-micro) var(--ease-servo);
+}
+
+.productTab:last-child {
+  border-right: none;
+}
+
+.productTab:hover {
+  color: var(--inspection);
+}
+
+.productTab[data-active] {
+  color: var(--signal);
+  background: var(--substrate);
+  box-shadow: inset 0 -2px 0 var(--signal);
+}
+
+.productTab:active {
+  transform: translateY(1px);
+}
+
+.product[data-carriage] {
+  animation: carriage var(--duration-component) var(--ease-servo);
+}
+
+/* display:flex would defeat the hidden attribute — restore it */
+.product[hidden] {
+  display: none;
+}
+
+@keyframes carriage {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.product {
+  max-width: 44rem;
+  border: var(--border-hairline);
+  background: var(--substrate);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.productHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.productCode {
+  font-size: var(--text-xs);
+  color: var(--signal);
+}
+
+.productName {
+  font-size: var(--text-xl);
+}
+
+.productSummary {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.specTable caption {
+  text-align: left;
+  padding-bottom: var(--space-1);
+}
+
+.specTable th,
+.specTable td {
+  border-top: var(--border-hairline);
+  padding: var(--space-1) 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.specTable th {
+  color: var(--faint);
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-xs);
+}
+
+.specTable td {
+  text-align: right;
+  color: var(--body-text);
+}
+
+.specTable tr[data-highlight] th,
+.specTable tr[data-highlight] td {
+  color: var(--signal);
+}
+
+/* ---------- SEC.09 TIMELINE — trajectory ---------- */
+
+.timeline {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6) var(--grid-gutter);
+}
+
+.milestone {
+  border-top: var(--border-strong);
+  padding-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.milestoneYear {
+  font-size: var(--text-2xl);
+}
+
+.milestoneTitle {
+  font-size: var(--text-sm);
+  color: var(--signal);
+}
+
+.milestoneDetail {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+}
+
+/* ---------- SEC.10 CASES — field reports ---------- */
+
+.cases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.case {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-4);
+}
+
+.caseHeader {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.caseTitle {
+  font-size: var(--text-lg);
+}
+
+.caseClient {
+  font-size: var(--text-xs);
+  color: var(--faint);
+}
+
+.caseBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.caseBody dd {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  margin-bottom: var(--space-2);
+  max-width: 55ch;
+}
+
+.caseMetrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.caseMetrics ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.caseHeadline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border: var(--border-hairline);
+  background: var(--substrate);
+  padding: var(--space-3);
+}
+
+.caseHeadline b {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--signal);
+}
+
+.caseMetric {
+  display: flex;
+  justify-content: space-between;
+  padding-right: clamp(var(--space-3), 6vw, var(--space-12));
+  font-size: var(--text-sm);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-1);
+}
+
+.caseMetric b {
+  font-weight: 700;
+  color: var(--inspection);
+}
+
+/* ---------- SEC.11 LEADERSHIP ---------- */
+
+.team {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.person {
+  border-top: var(--border-strong);
+  padding-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.personName {
+  font-size: var(--text-lg);
+}
+
+.personRole {
+  font-size: var(--text-xs);
+  color: var(--dimmed);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.personBackground {
+  font-size: var(--text-xs);
+  color: var(--signal);
+}
+
+.personCredential {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+}
+
+/* ---------- SEC.12 CAREERS ---------- */
+
+.culture {
+  font-size: var(--text-lg);
+  color: var(--inspection);
+  margin-bottom: var(--space-8);
+}
+
+.roles {
+  list-style: none;
+}
+
+.roleDetails {
+  border-top: var(--border-hairline);
+}
+
+.roleSummary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding-right: clamp(var(--space-3), 6vw, var(--space-12));
+  padding-block: var(--space-3);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.roleSummary::-webkit-details-marker {
+  display: none;
+}
+
+.roleMarker {
+  color: var(--faint);
+  transition: color var(--duration-micro) var(--ease-servo);
+}
+
+.roleDetails[open] .roleMarker,
+.roleSummary:hover .roleMarker {
+  color: var(--signal);
+}
+
+.roleTitle {
+  color: var(--inspection);
+  flex: 1;
+}
+
+.roleLocation {
+  color: var(--faint);
+}
+
+.roleResponsibilities {
+  list-style: none;
+  padding: 0 0 var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+}
+
+/* ---------- SEC.13 NEWS ---------- */
+
+.news {
+  list-style: none;
+}
+
+.newsItem {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-top: var(--border-hairline);
+}
+
+.newsDate {
+  font-size: var(--text-sm);
+  color: var(--faint);
+}
+
+.newsNew {
+  color: var(--signal);
+  animation: blink 2.4s steps(1) infinite;
+}
+
+.newsHeadline {
+  font-size: var(--text-base);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.newsSummary {
+  font-size: var(--text-sm);
+  color: var(--dimmed);
+  margin-top: var(--space-1);
+  max-width: 65ch;
+}
+
+.newsSource {
+  color: var(--faint);
+  font-size: var(--text-xs);
+}
+
+/* ---------- SEC.14 CONTACT ---------- */
+
+.contactForm {
+  max-width: 36rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.input {
+  background: var(--substrate);
+  border: var(--border-hairline);
+  border-bottom: 1px solid var(--hairline-strong);
+  color: var(--inspection);
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+  transition: border-color var(--duration-micro) var(--ease-servo);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: var(--signal);
+}
+
+.transmit {
+  align-self: flex-start;
+  font-size: var(--text-base);
+  padding: var(--space-2) var(--space-6);
+  border: 1px solid var(--inspection);
+  color: var(--inspection);
+  transition:
+    color var(--duration-micro) var(--ease-servo),
+    border-color var(--duration-micro) var(--ease-servo);
+}
+
+.transmit:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.transmit:active {
+  transform: translateY(2px);
+}
+
+.transmit[data-state="transmitting"] {
+  color: var(--dimmed);
+  border-color: var(--hairline-strong);
+  cursor: wait;
+}
+
+.transmit[data-state="received"] {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+/* ============================================================
+   RESPONSIVE COLLAPSE (tablet / mobile)
+   ============================================================ */
+
+@media (max-width: 64rem) {
+  .graph {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nodeArrow {
+    display: none;
+  }
+  .labGrid,
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .heroBootLog {
+    display: none;
+  }
+  /* schematic recedes behind the headline as a faint blueprint */
+  .heroSchematic {
+    right: 50%;
+    transform: translate(50%, -56%);
+    opacity: 0.38;
+  }
+  .productTabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .productTab {
+    flex: 1;
+    padding-inline: var(--space-2);
+    white-space: nowrap;
+  }
+  .platformStage {
+    min-height: 16rem;
+  }
+  .mission {
+    min-height: 72svh;
+    padding-block: var(--space-12);
+  }
+  .culture {
+    font-size: var(--text-md);
+  }
+  .graph,
+  .callouts,
+  .industries,
+  .labGrid,
+  .products,
+  .team,
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+  .case {
+    grid-template-columns: 1fr;
+  }
+  .caseMetric,
+  .roleSummary {
+    padding-right: 0;
+  }
+  .logRecord,
+  .newsItem {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+  .manifesto {
+    font-size: var(--text-display);
+  }
+}

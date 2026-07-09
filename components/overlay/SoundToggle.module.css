@@ -1,0 +1,23 @@
+.toggle {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--faint);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid transparent;
+  transition:
+    color var(--duration-micro) var(--ease-servo),
+    border-color var(--duration-micro) var(--ease-servo);
+}
+
+.toggle:hover {
+  color: var(--dimmed);
+  border-color: var(--hairline);
+}
+
+.toggle[data-on] {
+  color: var(--signal);
+}
+
+.toggle:active {
+  transform: translateY(1px);
+}

@@ -1,0 +1,63 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) var(--grid-margin);
+  border-bottom: var(--border-hairline);
+  background: color-mix(in srgb, var(--void) 82%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.wordmark {
+  font-size: var(--text-md);
+  color: var(--inspection);
+}
+
+.wordmarkTail {
+  color: var(--signal);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.links {
+  display: flex;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.link {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--dimmed);
+  transition: color var(--duration-micro) var(--ease-servo);
+}
+
+.link:hover {
+  color: var(--signal);
+}
+
+.linkNum {
+  color: var(--faint);
+  margin-right: 0.5em;
+}
+
+/* Mobile: hide link labels except contact; wordmark + minimal */
+@media (max-width: 47.9375rem) {
+  .links {
+    gap: var(--space-2);
+  }
+  .links li:not(:last-child) {
+    display: none;
+  }
+}

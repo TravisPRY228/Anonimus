@@ -1,0 +1,40 @@
+/* Secure-OS scan sweep: a hairline of signal light passing once
+   as a new document section resolves. */
+.scanline {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 1px;
+  z-index: var(--z-overlay);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--signal) 35%,
+    var(--signal) 65%,
+    transparent 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scanPlay {
+  animation: scan-sweep 560ms var(--ease-servo);
+}
+
+@keyframes scan-sweep {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.55;
+  }
+  92% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}

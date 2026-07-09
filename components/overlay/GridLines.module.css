@@ -1,0 +1,56 @@
+.grid {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grid);
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+.line {
+  border-left: 1px solid var(--hairline);
+  height: 100%;
+}
+
+.line:last-child {
+  border-left: none;
+  border-right: 1px solid var(--hairline);
+  /* place the closing rule at the right edge of the last column */
+  grid-column: 12;
+  justify-self: end;
+}
+
+/* Collapse: 12 → 6 columns (tablet) */
+@media (max-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .line:nth-child(n + 8) {
+    display: none;
+  }
+  .line:nth-child(7) {
+    border-left: none;
+    border-right: 1px solid var(--hairline);
+    grid-column: 6;
+    justify-self: end;
+  }
+}
+
+/* Collapse: 6 → 4 columns (mobile) */
+@media (max-width: 47.9375rem) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .line:nth-child(n + 6) {
+    display: none;
+  }
+  .line:nth-child(5) {
+    border-left: none;
+    border-right: 1px solid var(--hairline);
+    grid-column: 4;
+    justify-self: end;
+  }
+}
